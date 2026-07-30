@@ -48,8 +48,8 @@ PAGES = {
             "Civil construction across the Hadoti region since 2008 — highways, "
             "township roads, industrial infrastructure and stepwell restoration."
         ),
-        img="assets/photo-p6-1.jpg",
-        img_alt="Night view of a flyover corridor at Kota, Rajasthan",
+        img="assets/photo-p7-1.jpg",
+        img_alt="Cement plant at Kota with silos and conveyor gallery under a bright sky",
         index=True,
         og_type="website",
     ),

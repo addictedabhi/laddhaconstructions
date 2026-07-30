@@ -99,6 +99,10 @@ a:hover { color: var(--color-accent-600); }
 .hero--home .hero-frame img {
   /* No filter here. The saturate(.82) this replaces was tuned for the night
      photograph it used to carry and would mute the daylight sky. */
+  /* The source is 2.53:1 against a 100svh hero, so cover() crops the sides
+     hard - at 390px wide only 18% of the width survives. Biasing left of
+     centre keeps the silo cluster in frame instead of a blank middle strip. */
+  object-position: 38% center;
   animation: kb 38s cubic-bezier(.4,0,.2,1) both;
 }
 .hero--sub .hero-frame img,
@@ -517,7 +521,8 @@ a:hover { color: var(--color-accent-600); }
 
   .section { padding-block: var(--gap-page-tight); }
   .spreads { gap: var(--gap-page); }
-  .hero--home { min-height: 540px; }
+  /* A shorter hero on narrow screens means a less punishing side crop. */
+  .hero--home { height: 72svh; min-height: 460px; }
 }
 
 @media (max-width: 600px) {
