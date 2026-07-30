@@ -14,7 +14,27 @@ SITE = "https://laddhaconstructions.com"   # no trailing slash
 BRAND = "Laddha Constructions"
 PHONE = "+91-98293-54600"
 EMAIL = "laddha.ankit1986@gmail.com"
-OG_IMG_W, OG_IMG_H = 1080, 607
+def image_size(repo_root, rel_path):
+    """Real pixel size of an image in the repo.
+
+    Open Graph dimensions were previously a single global, so pages whose
+    image was not 1080x607 advertised a size the file did not have. Reading
+    the file keeps the declaration honest when an image is swapped.
+    """
+    from PIL import Image
+
+    with Image.open(repo_root / rel_path) as im:
+        return im.size
+
+# Canonical Google Maps place URL for the Kota office. Preferred over a
+# share.google short link: short links can expire or be rotated, and they
+# redirect through an interstitial.
+MAPS_URL = (
+    "https://www.google.com/maps/place/Laddha+Constructions/"
+    "@25.1433019,75.843112,17z/data=!4m6!3m5"
+    "!1s0x396f850041659251:0x3937f217c7374e6b"
+    "!8m2!3d25.1433019!4d75.843112!16s%2Fg%2F11ntks3732"
+)
 
 START = "<!-- seo:start -->"
 END = "<!-- seo:end -->"
@@ -154,7 +174,19 @@ ORG_LD = {
         "Bawari (stepwell) heritage restoration",
     ],
     "founder": {"@type": "Person", "name": "Ashok Laddha"},
-    "sameAs": [f"https://wa.me/919829354600"],
+    # Coordinates and the Maps URL of the verified Google Business listing
+    # (Knowledge Graph id /g/11ntks3732). These tie the site to the listing,
+    # which is what earns the map pack for local searches.
+    "hasMap": MAPS_URL,
+    "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 25.1433019,
+        "longitude": 75.843112,
+    },
+    "sameAs": [
+        "https://wa.me/919829354600",
+        MAPS_URL,
+    ],
 }
 
 SERVICES = [
@@ -242,8 +274,9 @@ def build_block(fname, cfg):
     lines.append(f'<meta property="og:description" content="{cfg["desc"]}">')
     lines.append(f'<meta property="og:url" content="{url}">')
     lines.append(f'<meta property="og:image" content="{img}">')
-    lines.append(f'<meta property="og:image:width" content="{OG_IMG_W}">')
-    lines.append(f'<meta property="og:image:height" content="{OG_IMG_H}">')
+    og_w, og_h = image_size(ROOT, cfg["img"])
+    lines.append(f'<meta property="og:image:width" content="{og_w}">')
+    lines.append(f'<meta property="og:image:height" content="{og_h}">')
     lines.append(f'<meta property="og:image:alt" content="{cfg["img_alt"]}">')
 
     # Twitter / X
