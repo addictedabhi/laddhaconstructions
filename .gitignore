@@ -1,0 +1,3 @@
+# Byproduct of the tools/ check scripts importing one another.
+__pycache__/
+*.pyc
