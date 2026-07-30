@@ -97,15 +97,20 @@ a:hover { color: var(--color-accent-600); }
 .hero-frame { position: absolute; inset: 0; overflow: hidden; }
 .hero-frame img { width: 100%; height: 100%; object-fit: cover; }
 .hero--home .hero-frame img {
-  filter: saturate(.82) contrast(1.03);
+  /* No filter here. The saturate(.82) this replaces was tuned for the night
+     photograph it used to carry and would mute the daylight sky. */
   animation: kb 38s cubic-bezier(.4,0,.2,1) both;
 }
 .hero--sub .hero-frame img,
 .hero--contact .hero-frame img { animation: kbs 30s ease-out both; }
 
 .hero-scrim { position: absolute; inset: 0; }
+/* The hero photograph carries its own gradient - sky about 203, foreground
+   about 84 - so white copy over the bottom-left text zone already measures
+   5.2:1 unaided. This scrim is insurance against a future image, not a
+   rescue: clear across the sky, gentle only behind the copy. */
 .hero--home .hero-scrim {
-  background: linear-gradient(180deg, rgba(18,17,15,.62) 0%, rgba(18,17,15,.36) 42%, rgba(18,17,15,.88) 100%);
+  background: linear-gradient(180deg, rgba(18,17,15,0) 0%, rgba(18,17,15,.08) 40%, rgba(18,17,15,.52) 100%);
 }
 .hero--sub .hero-scrim {
   background: linear-gradient(180deg, rgba(18,17,15,.44), rgba(18,17,15,.82));
