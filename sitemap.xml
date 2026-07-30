@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Live sitemap. Lists only indexable URLs — the retired holding page at
+  /coming-soon.html is noindex and is deliberately absent.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <url>
+    <loc>https://laddhaconstructions.com/</loc>
+    <lastmod>2026-07-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://laddhaconstructions.com/assets/photo-p6-1.jpg</image:loc>
+      <image:title>Laddha Constructions — Kota, Rajasthan</image:title>
+      <image:caption>Night view of a flyover corridor at Kota, Rajasthan</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://laddhaconstructions.com/about.html</loc>
+    <lastmod>2026-07-29</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://laddhaconstructions.com/assets/photo-p9-1.jpg</image:loc>
+      <image:caption>Aerial view of a road interchange under construction</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://laddhaconstructions.com/ongoing-projects.html</loc>
+    <lastmod>2026-07-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://laddhaconstructions.com/assets/1000514574.jpg</image:loc>
+      <image:caption>Entrance gate of Urbana Techno Park at Mandana</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://laddhaconstructions.com/completed-projects.html</loc>
+    <lastmod>2026-07-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://laddhaconstructions.com/assets/photo-p11-1.jpg</image:loc>
+      <image:caption>Aerial view of a completed flyover crossing Kota</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://laddhaconstructions.com/capability.html</loc>
+    <lastmod>2026-07-29</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://laddhaconstructions.com/assets/photo-p7-1.jpg</image:loc>
+      <image:caption>Industrial plant with silos and conveyor gallery</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://laddhaconstructions.com/contact.html</loc>
+    <lastmod>2026-07-29</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://laddhaconstructions.com/assets/photo-p12-1.jpg</image:loc>
+      <image:caption>Lit entrance gateway of a completed township</image:caption>
+    </image:image>
+  </url>
+
+</urlset>

@@ -1,0 +1,16 @@
+# Laddha Constructions — https://laddhaconstructions.com/
+# Site is live. All six pages are indexable.
+
+User-agent: *
+Allow: /
+
+# Retired holding page — carries noindex and must not compete with the
+# live homepage at /.
+Disallow: /coming-soon.html
+
+# Prototype markup and the source company profile — never for indexing.
+# The profile carries commercial figures that must not appear on the website.
+Disallow: /archive/
+Disallow: /Document/
+
+Sitemap: https://laddhaconstructions.com/sitemap.xml
