@@ -23,6 +23,12 @@ a:hover { color: var(--color-accent-600); }
   --gap-col: calc(var(--space-8) * 1.25);    /* two-column spread gutter       */
   --gap-block: calc(var(--space-4) * 1.25);  /* paragraph / block separation   */
   --page-max: 1180px;
+  /* Height of the fixed header: its vertical padding plus the brand's rendered
+     line box, which measures 32px rather than the 25px a naive 1.3rem * 1.2
+     suggests. Because the header is fixed it reserves no space in flow, so any
+     content that must clear it has to pad by this itself. The extra --space-3
+     keeps text off the header's bottom rule rather than flush against it. */
+  --header-h: calc(var(--space-4) * 2 + 32px + var(--space-3));
 }
 
 .wrap { max-width: var(--page-max); margin: 0 auto; }
@@ -90,7 +96,10 @@ a:hover { color: var(--color-accent-600); }
   display: grid; align-items: end;
 }
 /* svh keeps the hero from jumping as mobile browser chrome hides and shows. */
-.hero--home { height: 100svh; min-height: 620px; }
+/* min-height must not exceed what a short window can actually show, or the
+   bottom-pinned copy is pushed up under the fixed header. 620px did exactly
+   that below a ~620px viewport; 460px leaves the hero room to shrink. */
+.hero--home { height: 100svh; min-height: 460px; }
 .hero--sub  { height: 52svh;  min-height: 340px; }
 .hero--contact { height: 46svh; min-height: 300px; }
 
@@ -127,7 +136,10 @@ a:hover { color: var(--color-accent-600); }
   position: relative;
   max-width: var(--page-max);
   width: 100%;
-  padding: 0 var(--space-8) var(--space-8);
+  /* The header is fixed, so it does not reserve any space of its own. Pad the
+     top of the copy by its height and the hero grid has somewhere safe to put
+     the kicker when the viewport is too short to hold the whole block. */
+  padding: var(--header-h) var(--space-8) var(--space-8);
 }
 .hero--home .hero-copy { padding-bottom: calc(var(--space-8) * 1.4); }
 .hero--sub .hero-copy,
@@ -529,8 +541,9 @@ a:hover { color: var(--color-accent-600); }
 
   .section { padding-block: var(--gap-page-tight); }
   .spreads { gap: var(--gap-page); }
-  /* A shorter hero on narrow screens means a less punishing side crop. */
-  .hero--home { height: 72svh; min-height: 460px; }
+  /* A shorter hero on narrow screens means a less punishing side crop.
+     min-height is inherited from the base rule. */
+  .hero--home { height: 72svh; }
 }
 
 @media (max-width: 600px) {

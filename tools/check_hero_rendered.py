@@ -28,6 +28,16 @@ MIN_RENDERED_MEAN = 90.0
 AA_NORMAL = 4.5
 VIEWPORTS = [("desktop", 1440, 900), ("mobile", 390, 844)]
 
+# The header is fixed and the home hero pins its copy to the bottom, so a short
+# window used to slide the kicker underneath it. These heights are deliberately
+# cramped - they are where that regression showed up.
+OVERLAP_VIEWPORTS = [
+    ("desktop-short", 1440, 620),
+    ("laptop-short", 1280, 560),
+    ("mobile-short", 390, 560),
+    ("small", 360, 480),
+]
+
 
 def serve():
     handler = lambda *a, **k: http.server.SimpleHTTPRequestHandler(
@@ -112,6 +122,35 @@ def main():
                 if errors:
                     failures.append(f"{name}: console errors {errors}")
                 page.close()
+
+            # Squeeze the viewport and check the hero copy still clears the
+            # fixed header. Brightness and contrast both pass while the kicker
+            # is hidden behind it, so this needs its own geometry check.
+            print()
+            for name, w, h in OVERLAP_VIEWPORTS:
+                page = browser.new_page(viewport={"width": w, "height": h})
+                page.goto(f"http://127.0.0.1:{PORT}/", wait_until="load")
+                page.wait_for_timeout(3600)
+                header_bottom = page.evaluate(
+                    "document.querySelector('.site-header')"
+                    ".getBoundingClientRect().bottom"
+                )
+                kicker_top = page.evaluate(
+                    "document.querySelector('.hero-kicker')"
+                    ".getBoundingClientRect().top"
+                )
+                gap = kicker_top - header_bottom
+                print(
+                    f"[{name} {w}x{h}] header/kicker gap: {gap:6.0f}px "
+                    f"{'ok' if gap >= 0 else 'OVERLAP'}"
+                )
+                if gap < 0:
+                    failures.append(
+                        f"{name}: hero kicker sits {abs(gap):.0f}px under the "
+                        f"fixed header"
+                    )
+                page.close()
+
             browser.close()
     finally:
         httpd.shutdown()
