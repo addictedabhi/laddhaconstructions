@@ -138,6 +138,11 @@ a:hover { color: var(--color-accent-600); }
   color: var(--color-accent-300);
   margin: 0 0 var(--space-4);
   font-feature-settings: 'tnum';
+  /* Small accent text over a bright sky measures 2.6:1 unaided, and no tint in
+     the ramp clears AA on that ground - even pure white reaches only 3.9:1. A
+     shadow darkens just the pixels behind the glyphs, so the kicker becomes
+     legible without dimming the sky the way a larger scrim would. */
+  text-shadow: 0 1px 3px rgba(18,17,15,.85), 0 0 12px rgba(18,17,15,.55);
   animation: fadeUp 1.8s cubic-bezier(.22,.61,.36,1) .5s both;
 }
 .hero--sub .hero-kicker,
@@ -174,6 +179,9 @@ a:hover { color: var(--color-accent-600); }
   max-width: 46ch; font-size: 1.05rem; line-height: 1.75;
   color: rgba(247,245,241,.82);
   margin: 0 0 calc(var(--space-8) * .9);
+  /* Body-size copy now falls over plant structures rather than the flat dark
+     ground the night photograph gave it. Same reasoning as the kicker. */
+  text-shadow: 0 1px 3px rgba(18,17,15,.7);
   animation: fadeUp 2s cubic-bezier(.22,.61,.36,1) 2.1s both;
 }
 .hero-actions {
