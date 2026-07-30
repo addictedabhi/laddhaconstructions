@@ -14,6 +14,8 @@ SITE = "https://laddhaconstructions.com"   # no trailing slash
 BRAND = "Laddha Constructions"
 PHONE = "+91-98293-54600"
 EMAIL = "laddha.ankit1986@gmail.com"
+
+
 def image_size(repo_root, rel_path):
     """Real pixel size of an image in the repo.
 
@@ -51,20 +53,6 @@ PAGES = {
         img="assets/photo-p7-1.jpg",
         img_alt="Cement plant at Kota with silos and conveyor gallery under a bright sky",
         index=True,
-        og_type="website",
-    ),
-    # Retired holding page. Kept on disk but deliberately kept out of search:
-    # a stale "coming soon" ranking against the live homepage is a real risk.
-    "coming-soon.html": dict(
-        path="/coming-soon.html",
-        title=f"{BRAND} — Kota, Rajasthan",
-        desc=(
-            "Civil construction in Kota, Rajasthan since 2008 — roads, highways and "
-            "township infrastructure. Visit our homepage for the full site."
-        ),
-        img="assets/photo-p6-1.jpg",
-        img_alt="Night view of a flyover corridor at Kota, Rajasthan",
-        index=False,
         og_type="website",
     ),
     "about.html": dict(
@@ -234,7 +222,6 @@ def breadcrumb(name, path):
 
 def crumb_name(fname):
     return {
-        "coming-soon.html": "Coming soon",
         "about.html": "About",
         "ongoing-projects.html": "Ongoing projects",
         "completed-projects.html": "Completed projects",

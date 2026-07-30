@@ -1,3 +1,8 @@
 # Byproduct of the tools/ check scripts importing one another.
 __pycache__/
 *.pyc
+
+# Source company profile. Carries turnover figures and "Laddha Enterprises"
+# branding that the README bars from the website, so it must not deploy.
+# Kept on disk; still present in git history from commit 2f0231b.
+Document/

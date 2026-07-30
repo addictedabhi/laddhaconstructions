@@ -4,13 +4,8 @@
 User-agent: *
 Allow: /
 
-# Retired holding page — carries noindex and must not compete with the
-# live homepage at /.
-Disallow: /coming-soon.html
-
-# Prototype markup and the source company profile — never for indexing.
-# The profile carries commercial figures that must not appear on the website.
-Disallow: /archive/
-Disallow: /Document/
+# Design specs, implementation plans and verification screenshots. Kept in the
+# repo as project history, but they are not website content.
+Disallow: /docs/
 
 Sitemap: https://laddhaconstructions.com/sitemap.xml

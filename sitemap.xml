@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Live sitemap. Lists only indexable URLs — the retired holding page at
-  /coming-soon.html is noindex and is deliberately absent.
+  Live sitemap. Lists every indexable URL on the site.
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">

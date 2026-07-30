@@ -17,7 +17,6 @@ PAGES = [
     "completed-projects.html",
     "capability.html",
     "contact.html",
-    "coming-soon.html",
 ]
 
 
