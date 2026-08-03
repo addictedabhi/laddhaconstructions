@@ -126,7 +126,9 @@ ORG_LD = {
     "@id": f"{SITE}/#organization",
     "name": BRAND,
     "url": f"{SITE}/",
-    "logo": f"{SITE}/assets/photo-p6-1.jpg",
+    # Schema.org expects the real logo here, not a photograph. PNG rather
+    # than SVG: Google's structured-data logo field does not accept SVG.
+    "logo": f"{SITE}/assets/brand/favicon-512.png",
     "image": f"{SITE}/assets/photo-p6-1.jpg",
     "description": (
         "Civil construction firm in Kota, Rajasthan, delivering roads and highways, "
@@ -275,6 +277,15 @@ def build_block(fname, cfg):
 
     # Theme colour matches the dark footer ground.
     lines.append('<meta name="theme-color" content="#1a1917">')
+
+    # Favicons. The SVG is preferred by modern browsers and stays sharp at any
+    # size; the PNGs cover older ones and the Android/iOS home-screen icons.
+    # Below 48px the mark uses simplified artwork - the formation hairline
+    # fills in and muddies at small sizes.
+    lines.append('<link rel="icon" href="assets/brand/laddha-favicon.svg" type="image/svg+xml">')
+    lines.append('<link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32" type="image/png">')
+    lines.append('<link rel="icon" href="assets/brand/favicon-192.png" sizes="192x192" type="image/png">')
+    lines.append('<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon-180.png">')
 
     # Structured data. The organization node is emitted once per page (it is the
     # same @id everywhere, which is how search engines reconcile it), plus a

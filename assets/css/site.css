@@ -67,6 +67,10 @@ a:hover { color: var(--color-accent-600); }
 .site-header--home { animation: fadeIn 2s ease 2.4s both; }
 
 .site-brand {
+  /* The header aligns on the baseline, which a replaced element has no useful
+     notion of. Give the brand its own flex context so the mark centres against
+     the wordmark's cap height instead of hanging off the text baseline. */
+  display: inline-flex; align-items: center; gap: var(--space-3);
   font-family: var(--font-heading);
   font-size: 1.3rem; letter-spacing: .04em;
   color: var(--color-text);
@@ -74,6 +78,20 @@ a:hover { color: var(--color-accent-600); }
 }
 .site-brand span { color: var(--color-accent-700); }
 .site-brand:hover { color: var(--color-text); }
+
+/* The mark's artwork sits inside x=18..86 of a 100 viewBox, so it carries its
+   own ~18% clear space - the README asks for 14%. No extra padding needed;
+   the gap above is what separates it from the wordmark.
+
+   This uses the simplified artwork, not the full mark: the README calls for it
+   below 48px because the formation hairline fills in and muddies at small
+   sizes. It is also vertically tighter (72 units against 80.8), so it reads
+   larger in the same box. */
+.site-mark {
+  width: 32px; height: 32px;   /* README floor is 26px on screen */
+  flex: none;
+  display: block;
+}
 
 .site-nav {
   display: flex; align-items: baseline; gap: var(--space-6);
