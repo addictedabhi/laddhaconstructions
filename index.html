@@ -143,7 +143,12 @@
 
   <section class="hero hero--home">
     <div class="hero-frame">
-      <img src="assets/photo-p7-1.jpg" alt="Cement plant at Kota with silos and conveyor gallery under a bright sky">
+      <!-- Three slides crossfading on a 27s cycle. Only the first carries alt
+           text: the other two are decorative repeats of the same idea, and a
+           screen reader announcing all three would be noise. -->
+      <img src="assets/photo-p7-1.jpg" alt="Cement plant at Kota with silos and conveyor gallery under a bright sky" fetchpriority="high" decoding="async">
+      <img src="assets/hero-buildings.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img src="assets/hero-highway.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
     </div>
     <div class="hero-scrim"></div>
     <div class="hero-copy">
@@ -264,6 +269,14 @@
   <div class="site-footer-bar">
     <span>Laddha Constructions &nbsp;·&nbsp; Civil construction services since 2008</span>
     <span>Kota, Rajasthan, India</span>
+  </div>
+  <!-- CC BY-SA 4.0 obliges us to credit the author and name the licence
+       wherever the image is used. The other two hero slides are the firm's own
+       work and an Unsplash-licensed photograph, neither of which needs credit. -->
+  <div class="site-footer-credit">
+    Expressway photograph by
+    <a href="https://commons.wikimedia.org/wiki/File:Delhi%E2%80%93Meerut_Expressway_in_Ghaziabad_03.jpg" target="_blank" rel="noopener">Pinakpani</a>,
+    <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA 4.0</a>.
   </div>
 </footer>
 

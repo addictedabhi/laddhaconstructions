@@ -35,6 +35,17 @@ a:hover { color: var(--color-accent-600); }
 
 /* ── motion ──────────────────────────────────────────────────────────── */
 @keyframes kb   { from { transform: scale(1.05); } to { transform: scale(1.20) translateY(-2%); } }
+/* Three-slide crossfade. Each slide holds, fades out, stays hidden while the
+   other two take their turn, then comes back. Percentages are thirds of the
+   cycle with a ~7% overlap either side of each handover, which is what makes
+   the change read as a dissolve rather than a cut. */
+@keyframes heroFade {
+   0%    { opacity: 1; }
+  28%    { opacity: 1; }
+  35%    { opacity: 0; }
+  95%    { opacity: 0; }
+ 100%    { opacity: 1; }
+}
 @keyframes kbs  { from { transform: scale(1.04); } to { transform: scale(1.14); } }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
 @keyframes fadeUpSm { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
@@ -51,6 +62,11 @@ a:hover { color: var(--color-accent-600); }
   [data-reveal] { opacity: 1; animation: none !important; }
   * { animation-duration: .01ms !important; }
   html { scroll-behavior: auto; }
+  /* Collapsing the duration would freeze the rotator on whichever slide the
+     cycle happened to land on, and stacked slides at opacity 1 would show only
+     the last. Show the first and hide the rest: a still hero, not a broken one. */
+  .hero--home .hero-frame img { animation: none !important; opacity: 0; }
+  .hero--home .hero-frame img:nth-child(1) { opacity: 1; }
 }
 
 /* ── header ──────────────────────────────────────────────────────────── */
@@ -123,15 +139,36 @@ a:hover { color: var(--color-accent-600); }
 
 .hero-frame { position: absolute; inset: 0; overflow: hidden; }
 .hero-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Home hero rotator: three slides stacked in the same box, crossfading.
+   Stacking rather than sliding keeps the scrim and copy untouched - only the
+   photograph changes underneath them. */
 .hero--home .hero-frame img {
-  /* No filter here. The saturate(.82) this replaces was tuned for the night
-     photograph it used to carry and would mute the daylight sky. */
-  /* The source is 2.53:1 against a 100svh hero, so cover() crops the sides
-     hard - at 390px wide only 18% of the width survives. Biasing left of
-     centre keeps the silo cluster in frame instead of a blank middle strip. */
-  object-position: 38% center;
+  position: absolute; inset: 0;
+  animation: heroFade 27s ease-in-out infinite;
+}
+/* One third of the cycle apart. Negative delays start the sequence mid-way so
+   slide 1 is already showing on load rather than fading up from nothing. */
+.hero--home .hero-frame img:nth-child(1) { animation-delay:   0s; }
+.hero--home .hero-frame img:nth-child(2) { animation-delay:  -18s; }
+.hero--home .hero-frame img:nth-child(3) { animation-delay:   -9s; }
+
+/* The slow Ken Burns drift is a client request. It rides on the frame, not the
+   images, so the fade owns `animation` on each slide and the two effects
+   compose instead of fighting for the same property. */
+.hero--home .hero-frame {
   animation: kb 38s cubic-bezier(.4,0,.2,1) both;
 }
+/* No filter on these: the saturate(.82) that used to sit here was tuned for a
+   night photograph and would mute a daylight sky.
+
+   Framing differs per slide because the subjects sit in different places. The
+   cement plant is 2.53:1 against a 100svh hero, so cover() crops its sides hard
+   - at 390px wide only 18% of the width survives - and biasing left keeps the
+   silos in frame. The other two are 16:9 and read well centred. */
+.hero--home .hero-frame img:nth-child(1) { object-position: 38% center; }
+.hero--home .hero-frame img:nth-child(2) { object-position: 50% 60%; }
+.hero--home .hero-frame img:nth-child(3) { object-position: 50% center; }
 .hero--sub .hero-frame img,
 .hero--contact .hero-frame img { animation: kbs 30s ease-out both; }
 
@@ -168,11 +205,22 @@ a:hover { color: var(--color-accent-600); }
   color: var(--color-accent-300);
   margin: 0 0 var(--space-4);
   font-feature-settings: 'tnum';
-  /* Small accent text over a bright sky measures 2.6:1 unaided, and no tint in
-     the ramp clears AA on that ground - even pure white reaches only 3.9:1. A
-     shadow darkens just the pixels behind the glyphs, so the kicker becomes
-     legible without dimming the sky the way a larger scrim would. */
-  text-shadow: 0 1px 3px rgba(18,17,15,.85), 0 0 12px rgba(18,17,15,.55);
+  /* Small accent text over a bright photograph measures 2.3-3.4:1 unaided, and
+     no tint in the ramp clears AA on that ground - even pure white reaches only
+     3.9:1. The shadow alone was not enough once the hero began rotating through
+     three images of differing brightness, so the kicker carries its own soft
+     plate: dark enough behind the glyphs to clear AA on the brightest slide,
+     narrow enough that it never reads as a filled box. */
+  display: inline-block;
+  padding: var(--space-2) calc(var(--space-8) * 1.2) var(--space-2) 0;
+  /* A hard-edged panel would read as a UI chip and breaks the design system's
+     stroke-not-fill rule. Fading the wash out to the right leaves no visible
+     edge - it reads as shadow on the photograph, not as a box on top of it. */
+  background: linear-gradient(90deg,
+    rgba(18,17,15,.68) 0%,
+    rgba(18,17,15,.62) 55%,
+    rgba(18,17,15,0) 100%);
+  text-shadow: 0 1px 3px rgba(18,17,15,.9);
   animation: fadeUp 1.8s cubic-bezier(.22,.61,.36,1) .5s both;
 }
 .hero--sub .hero-kicker,
@@ -485,6 +533,16 @@ a:hover { color: var(--color-accent-600); }
   justify-content: space-between;
   font-size: .8rem; color: rgba(247,245,241,.5);
 }
+
+/* Image credit. Deliberately quiet - it is a licence obligation, not content. */
+.site-footer-credit {
+  max-width: var(--page-max);
+  margin: var(--space-3) auto 0;
+  font-size: .72rem;
+  color: rgba(247,245,241,.38);
+}
+.site-footer-credit a { color: rgba(247,245,241,.55); }
+.site-footer-credit a:hover { color: rgba(247,245,241,.8); }
 
 /* ── floating contact widget ─────────────────────────────────────────── */
 /* Offsets must resolve to a real token. The original used --space-5, which the

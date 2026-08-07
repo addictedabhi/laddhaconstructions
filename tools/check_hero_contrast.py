@@ -77,15 +77,19 @@ def main():
         failures.append(f"contrast {ratio:.2f}:1 is below AA ({AA_NORMAL})")
 
     css = CSS.read_text(encoding="utf-8")
-    home_img_rule = re.search(
-        r"\.hero--home \.hero-frame img \{(.*?)\}", css, re.S
-    ).group(1)
-    # Strip comments first: the rule documents why the filter was removed, and
-    # the word "saturate" inside that prose is not a live declaration.
-    home_img_decls = re.sub(r"/\*.*?\*/", "", home_img_rule, flags=re.S)
-    if "saturate" in home_img_decls:
+    # Look at every .hero--home rule, not one selector. The Ken Burns drift sits
+    # on .hero-frame and the fade on the slides, so pinning the assertion to a
+    # single rule made it fail the moment the hero became a rotator.
+    home_rules = "\n".join(
+        m.group(0)
+        for m in re.finditer(r"\.hero--home[^{]*\{[^}]*\}", css, re.S)
+    )
+    # Strip comments: the rules document why the filter was removed, and the
+    # word "saturate" inside that prose is not a live declaration.
+    home_decls = re.sub(r"/\*.*?\*/", "", home_rules, flags=re.S)
+    if "saturate" in home_decls:
         failures.append("home hero image still has a saturate() filter")
-    if "kb 38s cubic-bezier(.4,0,.2,1) both" not in home_img_rule:
+    if "kb 38s cubic-bezier(.4,0,.2,1) both" not in home_decls:
         failures.append("home hero animation timing was changed - must stay 38s")
 
     print()
