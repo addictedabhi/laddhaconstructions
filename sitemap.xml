@@ -7,7 +7,7 @@
 
   <url>
     <loc>https://laddhaconstructions.com/</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -19,7 +19,7 @@
 
   <url>
     <loc>https://laddhaconstructions.com/about.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-03</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -30,18 +30,19 @@
 
   <url>
     <loc>https://laddhaconstructions.com/ongoing-projects.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-09-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
-      <image:loc>https://laddhaconstructions.com/assets/1000514574.jpg</image:loc>
-      <image:caption>Entrance gate of Urbana Techno Park at Mandana</image:caption>
+      <image:loc>https://laddhaconstructions.com/assets/og-ongoing-projects.jpg</image:loc>
+      <image:title>Ongoing projects — Laddha Constructions</image:title>
+      <image:caption>Aerial view of a road interchange under construction at Kota</image:caption>
     </image:image>
   </url>
 
   <url>
     <loc>https://laddhaconstructions.com/completed-projects.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-09-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -52,7 +53,7 @@
 
   <url>
     <loc>https://laddhaconstructions.com/capability.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-03</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -63,12 +64,13 @@
 
   <url>
     <loc>https://laddhaconstructions.com/contact.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-09-29</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
     <image:image>
-      <image:loc>https://laddhaconstructions.com/assets/photo-p12-1.jpg</image:loc>
-      <image:caption>Lit entrance gateway of a completed township</image:caption>
+      <image:loc>https://laddhaconstructions.com/assets/og-contact.jpg</image:loc>
+      <image:title>Contact Laddha Constructions — Kota, Rajasthan</image:title>
+      <image:caption>Flyover corridor at Kota lit at night</image:caption>
     </image:image>
   </url>
 
