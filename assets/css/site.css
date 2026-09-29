@@ -608,6 +608,7 @@ a:hover { color: var(--color-accent-600); }
   .footer-links { gap: 0; }
   .footer-links a, .footer-reach a { padding-block: 10px; }
   .link-more, .contact-map-link, .site-footer-bar a { display: inline-block; padding-block: 10px; }
+  .site-footer-credit a { display: inline-block; padding-block: 13px; } /* 11.5px type needs more */
   .contact-line { min-height: 44px; }
   /* A bottom border on a stacked item reads as a stray rule, not as "current". */
   .site-nav a[aria-current="page"] { border-bottom: 0; }
