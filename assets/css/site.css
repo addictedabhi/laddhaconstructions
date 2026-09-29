@@ -193,8 +193,12 @@ a:hover { color: var(--color-accent-600); }
   width: 100%;
   /* The header is fixed, so it does not reserve any space of its own. Pad the
      top of the copy by its height and the hero grid has somewhere safe to put
-     the kicker when the viewport is too short to hold the whole block. */
-  padding: var(--header-h) var(--space-8) var(--space-8);
+     the kicker when the viewport is too short to hold the whole block.
+
+     --header-h is a constant derived from the default font size. If the reader
+     enlarges text the real header grows past it, so pad by whichever is
+     larger: the JS-measured actual height when available, else the constant. */
+  padding: max(var(--header-h), var(--header-h-actual, 0px)) var(--space-8) var(--space-8);
 }
 .hero--home .hero-copy { padding-bottom: calc(var(--space-8) * 1.4); }
 .hero--sub .hero-copy,
@@ -581,9 +585,36 @@ a:hover { color: var(--color-accent-600); }
 /* Six uppercase nav items stop fitting well before the layout breaks. */
 @media (max-width: 900px) {
   .site-header { flex-wrap: wrap; align-items: center; padding-inline: var(--space-4); }
+  /* The brand is the only flexible thing in the top row. Left to itself it
+     keeps its intrinsic width, so at a larger system font size (Android's
+     font-size setting, or desktop zoom) it eventually pushes the 44px toggle
+     onto a second row - which doubles the header height and, because the
+     header is fixed, buries the hero kicker underneath it. Letting the brand
+     shrink keeps brand and toggle on one row at any text size. */
+  .site-brand {
+    /* min-width:0 lets a flex item shrink below its content width; without it
+       the brand refuses to give ground and pushes the toggle off the row. */
+    /* flex-basis must be 0, not auto: an auto basis resolves to the brand's
+       max-content width and the item then refuses to shrink below it, which is
+       what pushed the toggle onto a second row. */
+    min-width: 0; flex: 1 1 0%;
+    /* The base rule sets nowrap on the anchor, which keeps the inner span from
+       ever being allowed to clip. Ellipsis is applied on the span instead. */
+    white-space: normal;
+  }
+  .site-brand-text {
+    /* The wordmark is a span wrapping a second, accented span. The ellipsis
+       must live on the outer one, and the inner one must stay inline so it
+       participates in that same line box - given display:block it forms its
+       own box, escapes the parent's clip and widens the page. */
+    display: block; min-width: 0;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
   .nav-toggle-label {
     display: inline-flex; align-items: center; justify-content: center;
     width: 44px; height: 44px; margin: calc(var(--space-2) * -1) 0;
+    /* Never let the toggle be the thing that shrinks or wraps. */
+    flex: none;
     cursor: pointer; color: var(--color-neutral-700);
   }
   .nav-toggle-label:hover { color: var(--color-accent-700); }

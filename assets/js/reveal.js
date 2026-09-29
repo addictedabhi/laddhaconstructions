@@ -37,3 +37,36 @@
     init();
   }
 })();
+
+/* Publish the header's measured height as --header-h-actual.
+
+   The hero pads its copy by --header-h, a constant derived from the default
+   font size. The header is fixed, so if it ever renders taller than that
+   constant — the reader has enlarged text, or the brand wraps — the extra
+   height lands on top of the hero kicker. Measuring it keeps the two in step.
+   CSS falls back to the constant when this never runs. */
+(function () {
+  'use strict';
+
+  var header = document.querySelector('.site-header');
+  if (!header) return;
+
+  var last = -1;
+  function publish() {
+    var h = Math.round(header.getBoundingClientRect().height);
+    if (h === last) return;
+    last = h;
+    document.documentElement.style.setProperty('--header-h-actual', h + 'px');
+  }
+
+  publish();
+
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(publish).observe(header);
+  } else {
+    window.addEventListener('resize', publish);
+  }
+
+  /* Web fonts land after first paint and change the brand's height. */
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(publish);
+})();
